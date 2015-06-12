@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:solr="http://www.springframework.org/schema/data/solr"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/solr
+    http://www.springframework.org/schema/data/solr/spring-solr-1.0.xsd">
+ 
+<solr:solr-server id="solrServer" timeout="1000" maxConnections="1000" url="${solr.server.url}"/>
+
+<bean id="solrServerFactory" class="org.springframework.data.solr.server.support.MulticoreSolrServerFactory">
+    <constructor-arg ref="solrServer" />
+    <constructor-arg name="cores">
+        <list>
+            <value>${solr.server.document.core.name}</value>
+            <value>${solr.server.user.core.name}</value>
+        </list>
+    </constructor-arg>
+</bean>
+
+<bean id="solrTemplate" class="org.springframework.data.solr.core.SolrTemplate">
+    <constructor-arg ref="solrServerFactory" />
+</bean>
+
+<solr:repositories base-package="com.princeli.solr.repositories" multicore-support="true" solr-template-ref="solrTemplate" />
+</beans>
