@@ -56,7 +56,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.whty.main.InitServer</mainClass>
+							<mainClass>com.princeli.main.InitServer</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
